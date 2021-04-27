@@ -1,0 +1,9 @@
+package name: lmh.android.gjbus
+app name: 광주버스
+app icon: res/drawable-xxhdpi-v4/icon.png
+android version code: 62
+android version name: 3.3.7
+minimum sdk version: 14
+maximum sdk version: None
+target sdk version: 25
+effective target sdk version: 25
