@@ -1,13 +1,7 @@
+import matplotlib.pyplot as plt
+import networkx as nx
 from androguard import misc
 from androguard.core.analysis.analysis import ExternalMethod
-import matplotlib.pyplot as plt
-import networkx as nx
-from androguard.misc import AnalyzeAPK
-from androguard import session
-from androguard.core.analysis.analysis import ExternalMethod
-import matplotlib.pyplot as plt
-import networkx as nx
-
 
 
 def certificate(a):  # CERTIFICATE
@@ -64,19 +58,22 @@ def methods(dx):
     for method in dx.get_methods():
         file.write("inside Method {} ".format(method.name) + ':' + '\n')
         for _, call, _ in method.get_xref_to():
-            file.write("    calling -> {} -- {} -- descriptor:  {}".format(call.class_name, call.name, call.get_descriptor()) + '\n')
+            file.write("    calling -> {} -- {} -- descriptor:  {}".format(call.class_name, call.name,
+                                                                           call.get_descriptor()) + '\n')
     file.close()
+
 
 def graph():
     CFG = nx.DiGraph()
 
-    for m in dx.find_methods(classname="Lcom/google/firebase/FirebaseApp;"):
+    for m in dx.find_methods(classname="Lkozlov/artyom/avitoweather/presentation/addcity/AddCityFragment;"):
         orig_method = m.get_method()
         print("Found Method --> {}".format(orig_method))
         # orig_method might be a ExternalMethod too...
         # so you can check it here also:
         if isinstance(orig_method, ExternalMethod):
             is_this_external = True
+
             # If this class is external, there will be very likely
             # no xref_to stored! If there is, it is probably a bug in androguard...
         else:
@@ -104,31 +101,23 @@ def graph():
     internal = []
     external = []
 
-    for n in CFG.node:
+    for n in CFG.nodes:
         if isinstance(n, ExternalMethod):
             external.append(n)
         else:
             internal.append(n)
 
-    nx.draw_networkx_nodes(CFG, pos=pos, node_color='r', nodelist=internal) # внутренний вызов метода
-    nx.draw_networkx_nodes(CFG, pos=pos, node_color='b', nodelist=external) # внешний вызов метода
-    nx.draw_networkx_edges(CFG, pos=pos, arrow=True)
-
-
+    nx.draw_networkx_nodes(CFG, pos=pos, node_color='red', nodelist=internal)  # внутренний вызов метода
+    nx.draw_networkx_nodes(CFG, pos=pos, node_color='blue', nodelist=external)  # внешний вызов метода
+    nx.draw_networkx_edges(CFG, pos=pos, edgelist=CFG.edges, edge_color='black')
     nx.draw_networkx_labels(CFG, pos=pos, labels={x: "{} {}".format(x.get_class_name(), x.get_name()) for x in CFG.adj})
 
-    plt.draw()
+ #   plt.draw()
     plt.show()
 
 
 
-
-a, d, dx = misc.AnalyzeAPK("malware.apk")
-
-
-
-
-
+a, d, dx = misc.AnalyzeAPK("avito.apk")
 
 certificate(a)
 print("Certificate save")
@@ -143,5 +132,3 @@ print("Classes save")
 methods(dx)
 print("Methods save")
 graph()
-
-
