@@ -1,9 +1,9 @@
-package name: kozlov.artyom.avitoweather
-app name: Avito weather
-app icon: res/mipmap-anydpi-v26/ic_launcher.xml
+package name: anubis.bot.myapplication
+app name: COVID-19
+app icon: res/mipmap-xxxhdpi/ic_launcher.png
 android version code: 1
 android version name: 1.0
 minimum sdk version: 21
 maximum sdk version: None
-target sdk version: 31
-effective target sdk version: 31
+target sdk version: 28
+effective target sdk version: 28

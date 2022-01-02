@@ -41,9 +41,11 @@ output = {
     "Landroid/net/Network;": ["bindSocket", "describeContents", "fromNetworkHandle", "getAllByName", "getByName", "getNetworkHandle", "getSocketFactory",
                               "hashCode", "openConnection",
                               "toString", "writeToParcel"],
-    "Lorg.apache.HttpRequest;": ["getAuthority", "getMethod", "getPath", "getRequestUri", "getScheme", "getUri", "setAuthority", "setPath", "setScheme",
+    "Lorg/apache/HttpRequest;": ["getAuthority", "getMethod", "getPath", "getRequestUri", "getScheme", "getUri", "setAuthority", "setPath", "setScheme",
                                  "setUri"],
-    "Lorg.apache.HttpResponse;": ["getEntity", "getLocale", "getStatusLine", "setEntity", "setLocale", "setReasonPhrase", "setStatusCode", "setStatusLine"],
+    "Lorg/apache/HttpResponse;": ["getEntity", "getLocale", "getStatusLine", "setEntity", "setLocale", "setReasonPhrase", "setStatusCode", "setStatusLine"],
+    "Lretrofit2/Retrofit$Builder;": ["baseUrl", "addCallAdapter", "build"]
+
 
 
 }

@@ -117,7 +117,7 @@ def graph():
 
 
 
-a, d, dx = misc.AnalyzeAPK("avito.apk")
+a, d, dx = misc.AnalyzeAPK("sa.apk")
 
 certificate(a)
 print("Certificate save")
