@@ -66,7 +66,7 @@ def methods(dx):
 def graph():
     CFG = nx.DiGraph()
 
-    for m in dx.find_methods(classname="Lkozlov/artyom/avitoweather/presentation/addcity/AddCityFragment;"):
+    for m in dx.find_methods(classname="Landroidx/core/location/LocationManagerCompat;"):
         orig_method = m.get_method()
         print("Found Method --> {}".format(orig_method))
         # orig_method might be a ExternalMethod too...
