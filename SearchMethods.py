@@ -3,7 +3,7 @@ from termcolor import cprint
 
 import Methods
 
-a, d, dx = misc.AnalyzeAPK("sa.apk")
+a, d, dx = misc.AnalyzeAPK("avito.apk")
 
 
 def search_methods(type_methods):
@@ -12,9 +12,9 @@ def search_methods(type_methods):
         try:
             use_class = False
             for meth in dx.classes[i].get_methods():
-                for _, call, _ in meth.get_xref_from():
+                for _, call, _ in meth.get_xref_to():
                     for methods in type_methods[i]:
-                        if methods.__str__() == call.name:
+                        if methods == call.name:
                             use_class = True
                             cprint("found method: --> {}".format(call.name), "green")
             if not use_class:
@@ -27,9 +27,6 @@ def search_methods(type_methods):
 
 print("Input methods")
 search_methods(Methods.input)
-print()
-print()
-print()
-print()
+print("\n\n\n\n\n")
 print("Output methods")
 search_methods(Methods.output)
