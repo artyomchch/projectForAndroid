@@ -7,6 +7,7 @@ input = {
     "Landroid/hardware/Camera;": ["open", "takePicture", "getParameters", "getCameraInfo", "setParameters"],
     "Landroid/hardware/camera2/CameraManager;": ["openCamera", "getCameraIdList", "getCameraCharacteristics"],
     "Ljava/util/Calendar;": ["getInstance"],
+    "Landroid/provider/VoicemailContract/Voicemails;": ["buildSourceUri"],
     "Landroid/provider/ContactsContract/Contacts;": ["getLookupUri", "lookupContact"],
     "Landroid/net/sip/SipManager;": ["getCallId", "getOfferSessionDescription", "getSessionFor", "makeAudioCall", "newInstance", "open"],
     "Landroid/telephony/SmsManager;": ["getDefault", "getSubscriptionId", "sendDataMessage", "sendMultimediaMessage", "sendMultipartTextMessage",
@@ -47,9 +48,10 @@ output = {
     "Lorg/apache/HttpRequest;": ["getAuthority", "getMethod", "getPath", "getRequestUri", "getScheme", "getUri", "setAuthority", "setPath", "setScheme",
                                  "setUri"],
     "Lorg/apache/HttpResponse;": ["getEntity", "getLocale", "getStatusLine", "setEntity", "setLocale", "setReasonPhrase", "setStatusCode", "setStatusLine"],
-    "Lretrofit2/Retrofit$Builder;": ["baseUrl", "addCallAdapter", "build"],
-    "Lokhttp3/OkHttpClient;": ["authenticator", "cache", "callTimeoutMillis", "certificatePinner", "connectionPool", "dispatcher", "dns", "interceptors",
-                               "newBuilder", "newCall", "newWebSocket", "protocols", "proxy", "authenticator", "proxySelector", "readTimeoutMillis",
-                               "socketFactory", "writeTimeoutMillis"]
-
+    "Lretrofit2/Retrofit$Builder;": ["baseUrl", "addCallAdapter"],
+    "Lretrofit2/RequestFactory$Builder;": ["build"],
+    "Lokhttp3/OkHttpClient$Builder;": ["authenticator", "cache", "callTimeoutMillis", "certificatePinner", "connectionPool", "dispatcher", "dns",
+                                       "interceptors",
+                                       "newBuilder", "newCall", "newWebSocket", "protocols", "proxy", "authenticator", "proxySelector", "readTimeoutMillis",
+                                       "socketFactory", "writeTimeoutMillis"]
 }
