@@ -5,8 +5,12 @@ import Methods
 
 a, d, dx = misc.AnalyzeAPK("avito.apk")
 
+methodGenerationInput = []
+methodGenerationOutput = []
+permissionGeneration = []
 
-def search_methods(type_methods):
+
+def search_methods(type_methods, method_generation):
     for i in type_methods:
         print("Use Class: ", i)
         try:
@@ -17,16 +21,23 @@ def search_methods(type_methods):
                         if methods == call.name:
                             use_class = True
                             cprint("found method: --> {}".format(call.name), "green")
+                            method_generation.append(1)
             if not use_class:
                 cprint("Class {} found, but no search methods found".format(i), "yellow")
+
+                for k in range(len(type_methods[i])):
+                    method_generation.append(0)
             print("__________________________")
         except KeyError:
+            for k in range(len(type_methods[i])):
+                method_generation.append(0)
             cprint("Androguard not found class --> {}".format(i), "red")
             print("__________________________")
 
 
 print("Input methods")
-search_methods(Methods.input)
+search_methods(Methods.input, methodGenerationInput)
 print("\n\n\n\n\n")
 print("Output methods")
-search_methods(Methods.output)
+search_methods(Methods.output, methodGenerationOutput)
+print(methodGenerationInput)

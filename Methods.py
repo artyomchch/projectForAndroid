@@ -32,12 +32,13 @@ input = {
                                           "getNetworkInfo", "getNetworkWatchlistConfigHash", "getProcessDefaultNetwork"],
     "Landroid/net/NetworkInfo;": ["describeContents", "getDetailedState", "getExtraInfo", "getState", "getSubtype", "getSubtypeName", "getType", "getTypeName"],
     "Landroid/net/NetworkCapabilities;": ["getCapabilities", "describeContents", "getNetworkSpecifier", "getOwnerUid", "getSignalStrength", "getTransportInfo"],
+    "Landroid.os.Environment;": ["getDataDirectory", "getExternalStorageDirectory", "getExternalStorageState", "getStorageState", "getDownloadCacheDirectory"]
 }
 
 output = {
-    "Ljava/net/URL;": ["openStream", "getHost", "getFile", "getPort", "getProtocol", "getRef", "hashCode", "equals",
+    "Ljava/net/URL;": ["openStream", "getContent", "getHost", "getFile", "getPort", "getProtocol", "getRef", "hashCode", "equals",
                        "toExternalForm", "toString", "openConnection"],
-    "Ljava/net/Socket;": ["accept", "bind", "close", "getChannel", "getInetAddress", "getLocalPort", "getLocal", "socketAddress",
+    "Ljava/net/Socket;": ["bind", "connect", "close", "getChannel", "getInetAddress", "getLocalPort", "getLocal", "socketAddress",
                           "getReceive", "isClosed", "setReceive"],
     "Landroid/net/Uri;": ["buildUpon", "compareTo", "decode", "encode", "equals", "fromParts", "getAuthority", "getEncodedQuery", "getHost",
                           "getLastPathSegment", "getPath", "getPathSegments", "getPort", "getQuery", "getScheme", "specificPart", "normalizeScheme", "parse",
@@ -45,9 +46,10 @@ output = {
     "Landroid/net/Network;": ["bindSocket", "describeContents", "fromNetworkHandle", "getAllByName", "getByName", "getNetworkHandle", "getSocketFactory",
                               "hashCode", "openConnection",
                               "toString", "writeToParcel"],
-    "Lorg/apache/HttpRequest;": ["getAuthority", "getMethod", "getPath", "getRequestUri", "getScheme", "getUri", "setAuthority", "setPath", "setScheme",
-                                 "setUri"],
-    "Lorg/apache/HttpResponse;": ["getEntity", "getLocale", "getStatusLine", "setEntity", "setLocale", "setReasonPhrase", "setStatusCode", "setStatusLine"],
+    "Lorg/apache/http/HttpRequest;": ["getAuthority", "getMethod", "getPath", "getRequestUri", "getScheme", "getUri", "setAuthority", "setPath", "setScheme",
+                                      "setUri"],
+    "Lorg/apache/http/HttpResponse;": ["getEntity", "getLocale", "getStatusLine", "setEntity", "setLocale", "setReasonPhrase", "setStatusCode",
+                                       "setStatusLine"],
     "Lretrofit2/Retrofit$Builder;": ["baseUrl", "addCallAdapter"],
     "Lretrofit2/RequestFactory$Builder;": ["build"],
     "Lokhttp3/OkHttpClient$Builder;": ["authenticator", "cache", "callTimeoutMillis", "certificatePinner", "connectionPool", "dispatcher", "dns",
