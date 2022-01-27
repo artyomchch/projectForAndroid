@@ -1,9 +1,9 @@
 from androguard import misc
 from termcolor import cprint
 
-import Methods
+from data import Methods, Mapper
 
-a, d, dx = misc.AnalyzeAPK("avito.apk")
+a, d, dx = misc.AnalyzeAPK("../apk/avito.apk")
 
 methodGenerationInput = []
 methodGenerationOutput = []
@@ -40,4 +40,7 @@ search_methods(Methods.input, methodGenerationInput)
 print("\n\n\n\n\n")
 print("Output methods")
 search_methods(Methods.output, methodGenerationOutput)
+
+print(methodGenerationOutput)
 print(methodGenerationInput)
+print(dict(zip(Mapper.get_list_methods(Methods.output), methodGenerationOutput)))

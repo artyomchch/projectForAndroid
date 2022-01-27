@@ -34,7 +34,7 @@ def activities(a):  # ACTIVITIES
 
 
 def aboutApp(a):  # ABOUT APP
-    file = open('aboutApp.txt', 'w', encoding='utf-8')
+    file = open('../logs/aboutApp.txt', 'w', encoding='utf-8')
     file.write("package name: " + a.get_package() + "\n")
     file.write("app name: " + str(a.get_app_name()) + "\n")
     file.write("app icon: " + str(a.get_app_icon()) + "\n")
@@ -117,7 +117,7 @@ def graph():
 
 
 
-a, d, dx = misc.AnalyzeAPK("avito.apk")
+a, d, dx = misc.AnalyzeAPK("../apk/avito.apk")
 
 certificate(a)
 print("Certificate save")
