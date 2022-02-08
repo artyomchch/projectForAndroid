@@ -43,4 +43,6 @@ search_methods(Methods.output, methodGenerationOutput)
 
 print(methodGenerationOutput)
 print(methodGenerationInput)
+print(Methods.output.keys())
+print(Methods.input.keys())
 print(dict(zip(Mapper.get_list_methods(Methods.output), methodGenerationOutput)))
