@@ -17,4 +17,5 @@ def config_db():
     post_id = posts.insert_one(post).inserted_id
 
 
+
 config_db()
