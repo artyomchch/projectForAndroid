@@ -1,6 +1,7 @@
 from androguard import misc
 from termcolor import cprint
 
+
 from data import Methods, Mapper
 
 a, d, dx = misc.AnalyzeAPK("../apk/avito.apk")

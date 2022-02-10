@@ -2,28 +2,9 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from androguard import misc
 from androguard.core.analysis.analysis import ExternalMethod
+import hashlib
 
 
-def certificate(a):  # CERTIFICATE
-    file = open('certificate' + '.txt', 'w')
-    for cert in a.get_certificates():
-        file.write("the sha1 fingerprint: " + str(cert.sha1) + "\n")  # the sha1 fingerprint
-        file.write("the sha256 fingerprint: " + str(cert.sha256) + "\n")  # the sha256 fingerprint
-        file.write("issuer: " + cert.issuer.human_friendly + "\n")  # issuer
-        file.write("subject, usually the same: " + cert.subject.human_friendly + "\n")  # subject, usually the same
-        file.write("hash algorithm: " + cert.hash_algo + "\n")  # hash algorithm
-        file.write("Signature algorithm: " + cert.signature_algo + "\n")  # Signature algorithm
-        file.write("Serial number: " + str(cert.serial_number) + "\n")  # Serial number
-        file.write("The DER coded bytes of the certificate itself: " + str(
-            cert.contents) + "\n")  # The DER coded bytes of the certificate itself
-    file.close()
-
-
-def permission(a):  # PERMISSION
-    file = open('permission' + '.txt', 'w')
-    for perm in a.get_permissions():
-        file.write(perm + "\n")
-    file.close()
 
 
 def activities(a):  # ACTIVITIES
@@ -32,18 +13,50 @@ def activities(a):  # ACTIVITIES
         file.write(acti + "\n")
     file.close()
 
+def services(a):
+    file = open('services' + '.txt', 'w')
+    for serv in a.get_services():
+        file.write(serv + "\n")
+    file.close()
+
+def providers(a):
+    file = open('provides' + '.txt', 'w')
+    for prod in a.get_providers():
+        file.write(prod + "\n")
+    file.close()
+
+def permission(a):  # PERMISSION
+    file = open('permission' + '.txt', 'w')
+    for perm in a.get_permissions():
+        file.write(perm + "\n")
+    file.close()
+
+
+def certificate(a):  # CERTIFICATE
+    file = open('certificate' + '.txt', 'w')
+    for cert in a.get_certificates():
+        file.write("the sha1 fingerprint: " + str(hashlib.sha1(cert.sha1).hexdigest()) + "\n")  # the sha1 fingerprint
+        file.write("the sha256 fingerprint: " + str(hashlib.sha256(cert.sha256).hexdigest()) + "\n")  # the sha256 fingerprint
+        file.write("issuer: " + cert.issuer.human_friendly + "\n")  # issuer
+        file.write("subject, usually the same: " + cert.subject.human_friendly + "\n")  # subject, usually the same
+        file.write("hash algorithm: " + cert.hash_algo + "\n")  # hash algorithm
+        file.write("Signature algorithm: " + cert.signature_algo + "\n")  # Signature algorithm
+        file.write("Serial number: " + str(cert.serial_number) + "\n")  # Serial number
+       # file.write("The DER coded bytes of the certificate itself: " + str(
+       #     cert.contents) + "\n")  # The DER coded bytes of the certificate itself
+    file.close()
 
 def aboutApp(a):  # ABOUT APP
     file = open('../logs/aboutApp.txt', 'w', encoding='utf-8')
     file.write("package name: " + a.get_package() + "\n")
     file.write("app name: " + str(a.get_app_name()) + "\n")
-    file.write("app icon: " + str(a.get_app_icon()) + "\n")
-    file.write("android version code: " + str(a.get_androidversion_code()) + "\n")
-    file.write("android version name: " + str(a.get_androidversion_name()) + "\n")
+   # file.write("app icon: " + str(a.get_app_icon()) + "\n")
+   # file.write("android version code: " + str(a.get_androidversion_code()) + "\n")
+   # file.write("android version name: " + str(a.get_androidversion_name()) + "\n")
     file.write("minimum sdk version: " + str(a.get_min_sdk_version()) + "\n")
     file.write("maximum sdk version: " + str(a.get_max_sdk_version()) + "\n")
     file.write("target sdk version: " + str(a.get_target_sdk_version()) + "\n")
-    file.write("effective target sdk version: " + str(a.get_effective_target_sdk_version()) + "\n")
+   # file.write("effective target sdk version: " + str(a.get_effective_target_sdk_version()) + "\n")
     file.close()
 
 
@@ -62,6 +75,35 @@ def methods(dx):
                                                                            call.get_descriptor()) + '\n')
     file.close()
 
+def intents(a):
+    intent_filters = {}
+
+    activities = a.get_activities()
+    receivers = a.get_receivers()
+    services = a.get_services()
+
+    if activities is not None:
+        for i in activities:
+            filters = a.get_intent_filters("activity", i)
+            if filters is not None and len(filters) > 0:
+                intent_filters[i] = filters
+
+    if receivers is not None:
+        for i in receivers:
+            filters = a.get_intent_filters("receiver", i)
+            if filters is not None and len(filters) > 0:
+                intent_filters[i] = filters
+
+    if services is not None:
+        for i in services:
+            filters = a.get_intent_filters("service", i)
+            if filters is not None and len(filters) > 0:
+                intent_filters[i] = filters
+
+    file = open('intents' + '.txt', 'w')
+    for intent in intent_filters:
+        file.write(intent + "\n")
+    file.close()
 
 def graph():
     CFG = nx.DiGraph()
@@ -127,8 +169,10 @@ activities(a)
 print("Activities save")
 aboutApp(a)
 print("About app save")
-classes(dx)
-print("Classes save")
-methods(dx)
-print("Methods save")
-graph()
+intents(a)
+print("Intents save")
+#classes(dx)
+#print("Classes save")
+#methods(dx)
+#print("Methods save")
+#graph()

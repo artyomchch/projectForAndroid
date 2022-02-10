@@ -1,9 +1,5 @@
-package name: kozlov.artyom.testApp
-app name: test app
-app icon: res/mipmap-anydpi-v26/ic_launcher.xml
-android version code: 1
-android version name: 1.0
+package name: kozlov.artyom.avitoweather
+app name: Avito weather
 minimum sdk version: 21
 maximum sdk version: None
 target sdk version: 31
-effective target sdk version: 31
