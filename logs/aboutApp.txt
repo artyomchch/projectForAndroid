@@ -1,5 +1,0 @@
-package name: kozlov.artyom.avitoweather
-app name: Avito weather
-minimum sdk version: 21
-maximum sdk version: None
-target sdk version: 31

@@ -1,39 +1,41 @@
+import hashlib
+
 import matplotlib.pyplot as plt
 import networkx as nx
 from androguard import misc
 from androguard.core.analysis.analysis import ExternalMethod
-import hashlib
-
-
 
 
 def activities(a):  # ACTIVITIES
-    file = open('activities' + '.txt', 'w')
+    file = open('../logs/activities' + '.txt', 'w')
     for acti in a.get_activities():
         file.write(acti + "\n")
     file.close()
 
+
 def services(a):
-    file = open('services' + '.txt', 'w')
+    file = open('../logs/services' + '.txt', 'w')
     for serv in a.get_services():
         file.write(serv + "\n")
     file.close()
 
+
 def providers(a):
-    file = open('provides' + '.txt', 'w')
+    file = open('../logs/provides' + '.txt', 'w')
     for prod in a.get_providers():
         file.write(prod + "\n")
     file.close()
 
+
 def permission(a):  # PERMISSION
-    file = open('permission' + '.txt', 'w')
+    file = open('../logs/permission' + '.txt', 'w')
     for perm in a.get_permissions():
         file.write(perm + "\n")
     file.close()
 
 
 def certificate(a):  # CERTIFICATE
-    file = open('certificate' + '.txt', 'w')
+    file = open('../logs/certificate' + '.txt', 'w')
     for cert in a.get_certificates():
         file.write("the sha1 fingerprint: " + str(hashlib.sha1(cert.sha1).hexdigest()) + "\n")  # the sha1 fingerprint
         file.write("the sha256 fingerprint: " + str(hashlib.sha256(cert.sha256).hexdigest()) + "\n")  # the sha256 fingerprint
@@ -42,38 +44,40 @@ def certificate(a):  # CERTIFICATE
         file.write("hash algorithm: " + cert.hash_algo + "\n")  # hash algorithm
         file.write("Signature algorithm: " + cert.signature_algo + "\n")  # Signature algorithm
         file.write("Serial number: " + str(cert.serial_number) + "\n")  # Serial number
-       # file.write("The DER coded bytes of the certificate itself: " + str(
-       #     cert.contents) + "\n")  # The DER coded bytes of the certificate itself
+    # file.write("The DER coded bytes of the certificate itself: " + str(
+    #     cert.contents) + "\n")  # The DER coded bytes of the certificate itself
     file.close()
+
 
 def aboutApp(a):  # ABOUT APP
     file = open('../logs/aboutApp.txt', 'w', encoding='utf-8')
     file.write("package name: " + a.get_package() + "\n")
     file.write("app name: " + str(a.get_app_name()) + "\n")
-   # file.write("app icon: " + str(a.get_app_icon()) + "\n")
-   # file.write("android version code: " + str(a.get_androidversion_code()) + "\n")
-   # file.write("android version name: " + str(a.get_androidversion_name()) + "\n")
+    # file.write("app icon: " + str(a.get_app_icon()) + "\n")
+    # file.write("android version code: " + str(a.get_androidversion_code()) + "\n")
+    # file.write("android version name: " + str(a.get_androidversion_name()) + "\n")
     file.write("minimum sdk version: " + str(a.get_min_sdk_version()) + "\n")
     file.write("maximum sdk version: " + str(a.get_max_sdk_version()) + "\n")
     file.write("target sdk version: " + str(a.get_target_sdk_version()) + "\n")
-   # file.write("effective target sdk version: " + str(a.get_effective_target_sdk_version()) + "\n")
+    # file.write("effective target sdk version: " + str(a.get_effective_target_sdk_version()) + "\n")
     file.close()
 
 
 def classes(dx):
-    file = open('classes' + '.txt', 'w')
+    file = open('../logs/classes' + '.txt', 'w')
     file.write(str(dx.get_classes()))
     file.close()
 
 
 def methods(dx):
-    file = open('methods' + '.txt', 'w')
+    file = open('../logs/methods' + '.txt', 'w')
     for method in dx.get_methods():
         file.write("inside Method {} ".format(method.name) + ':' + '\n')
         for _, call, _ in method.get_xref_to():
             file.write("    calling -> {} -- {} -- descriptor:  {}".format(call.class_name, call.name,
                                                                            call.get_descriptor()) + '\n')
     file.close()
+
 
 def intents(a):
     intent_filters = {}
@@ -100,10 +104,11 @@ def intents(a):
             if filters is not None and len(filters) > 0:
                 intent_filters[i] = filters
 
-    file = open('intents' + '.txt', 'w')
+    file = open('../logs/intents' + '.txt', 'w')
     for intent in intent_filters:
         file.write(intent + "\n")
     file.close()
+
 
 def graph():
     CFG = nx.DiGraph()
@@ -154,12 +159,21 @@ def graph():
     nx.draw_networkx_edges(CFG, pos=pos, edgelist=CFG.edges, edge_color='black')
     nx.draw_networkx_labels(CFG, pos=pos, labels={x: "{} {}".format(x.get_class_name(), x.get_name()) for x in CFG.adj})
 
- #   plt.draw()
+    #   plt.draw()
     plt.show()
 
 
+def fields():
+    # for i in dx.find_fields(classname='.*ContentValues', fieldname='', fieldtype='.*', accessflags='.*'):
+    #     print(i)
+    file = open('../logs/fields' + '.txt', 'w')
+    for field in dx.find_fields(classname='.*', fieldname='', fieldtype='.*', accessflags='.*'):
+        file.write(str(field))
+    file.close()
 
-a, d, dx = misc.AnalyzeAPK("../apk/avito.apk")
+
+
+a, d, dx = misc.AnalyzeAPK("../apk/test_apk.apk")
 
 certificate(a)
 print("Certificate save")
@@ -175,8 +189,10 @@ providers(a)
 print("Providers save")
 services(a)
 print("services save")
-#classes(dx)
-#print("Classes save")
-#methods(dx)
-#print("Methods save")
-#graph()
+classes(dx)
+print("Classes save")
+methods(dx)
+print("Methods save")
+fields()
+print("Fields save")
+# graph()
