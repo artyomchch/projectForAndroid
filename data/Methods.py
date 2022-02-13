@@ -41,6 +41,27 @@ input = {
     "Landroid/net/NetworkCapabilities;": ["getOwnerUid", "getSignalStrength", "getTransportInfo"],
     "Landroidx/core/net/ConnectivityManagerCompat;": ["getNetworkInfoFromBroadcast"],
     "Lcom/google/android/things/bluetooth/BluetoothConfigManager;": ["getBluetoothClass", "getInstance"],
+}
+
+input_constants = {
+    "CallLog/Calls": ["CONTENT_URI", "CACHED_LOOKUP_URI", "CACHED_MATCHED_NUMBER", "CACHED_NAME", "CACHED_PHOTO_URI", "COUNTRY_ISO", "DATA_USAGE", "DATE",
+                      "DURATION", "FEATURES", "GEOCODED_LOCATION", "INCOMING_TYPE", "LOCATION", "NUMBER", "OUTGOING_TYPE", "PHONE_ACCOUNT_COMPONENT_NAME",
+                      "PHONE_ACCOUNT_ID", "TYPE", "VIA_NUMBER", "VOICEMAIL_TYPE", "VOICEMAIL_URI"],
+    "Contacts": ["vnd.android.cursor.item/name", "vnd.android.cursor.item/contact", "vnd.android.cursor.item/email_v2",
+                 "vnd.android.cursor.item/websitevnd.android.cursor.item/note", "vnd.android.cursor.item/contact_eventdata6",
+                 "vnd.android.cursor.item/postal-address_v2data7data8data9data10", "vnd.android.cursor.item",
+                 "vnd.android.cursor.item/im", "vnd.android.cursor.item/organization", "vnd.android.cursor.item/group_membership",
+                 "vnd.android.cursor.item/phone_v", "vnd.android.cursor.dir/name", "vnd.android.cursor.dir/contact", "vnd.android.cursor.dir/email_v2",
+                 "vnd.android.cursor.dir/websitevnd.android.cursor.dir/note", "vnd.android.cursor.dir/contact_eventdata6",
+                 "vnd.android.cursor.dir/postal-address_v2data7data8data9data10", "vnd.android.cursor.dir",
+                 "vnd.android.cursor.dir/im", "vnd.android.cursor.dir/organization", "vnd.android.cursor.dir/group_membership",
+                 "vnd.android.cursor.dir/phone_v"],
+    "Calls": ["vnd.android.cursor.item/calls", "vnd.android.cursor.dir/calls"],
+    "SMS": ["content://sms/inbox", "content://sms/sent", "content://sms/draft"],
+    "Profile": ["vnd.android.cursor.item/vnd.org.telegram.messenger.android.profileTelegram", "vnd.android.cursor.item/vnd.com.whatsapp.profile",
+                "vnd.android.cursor.item/vnd.com.viber.voip.viber_number_message", "vnd.android.cursor.item/vnd.org.thoughtcrime.securesms",
+                "vnd.android.cursor.item/vnd.facebook.profile", "vnd.android.cursor.item/vnd.googleplus.profile",
+                "vnd.android.cursor.item/vnd.com.linkedin.android.profile"]
 
 }
 

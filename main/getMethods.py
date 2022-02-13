@@ -3,6 +3,7 @@ import hashlib
 import matplotlib.pyplot as plt
 import networkx as nx
 from androguard import misc
+from androguard.core import bytecode
 from androguard.core.analysis.analysis import ExternalMethod
 
 
@@ -167,10 +168,35 @@ def fields():
     # for i in dx.find_fields(classname='.*ContentValues', fieldname='', fieldtype='.*', accessflags='.*'):
     #     print(i)
     file = open('../logs/fields' + '.txt', 'w')
-    for field in dx.find_fields(classname='.*', fieldname='', fieldtype='.*', accessflags='.*'):
-        file.write(str(field))
+    # for field in dx.find_fields(classname='.*', fieldname='.*', fieldtype='.*', accessflags='.*'):
+    for field in dx.find_strings(string='.*'):
+        print(field)
     file.close()
 
+
+def get_invoke_class():
+    file = open('../logs/fields' + '.txt', 'w')
+
+    if dx is not None:
+        strings = dx.get_strings_analysis()
+        for item in strings:
+            file.write(str(item.encode('utf-8')) + "\n")
+        # file.write("\n\n\n\n\n\n\n\n\n\n   FIRST \n\n\n\n\n\n\n\n\n\n\n\n\n")
+        # for ext_class in dx.get_external_classes():
+        #     file.write(str(ext_class.name + "\n"))
+        # file.write("\n\n\n\n\n\n\n\n\n\n   SECOND \n\n\n\n\n\n\n\n\n\n\n\n\n")
+        # for cls in dx.get_classes():
+        #     for meth in cls.get_methods():
+        #         method_name = meth.name
+        #         mname = "METH_" + method_name + "_" + bytecode.FormatDescriptorToPython(meth.access) + "_" + bytecode.FormatDescriptorToPython(
+        #             meth.descriptor)
+        #         file.write(mname + "\n")
+        #
+        #     for field in cls.get_fields():
+        #         mname = "FIELD_" + bytecode.FormatNameToPython(field.name)
+        #         # with open(field_file, 'a') as f1:
+        #         #     f1.write(mname)
+        #         file.write(mname + "\n")
 
 
 a, d, dx = misc.AnalyzeAPK("../apk/test_apk.apk")
@@ -193,6 +219,7 @@ classes(dx)
 print("Classes save")
 methods(dx)
 print("Methods save")
-fields()
+# fields()
 print("Fields save")
 # graph()
+get_invoke_class()
