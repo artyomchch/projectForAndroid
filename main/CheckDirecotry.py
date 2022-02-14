@@ -1,19 +1,13 @@
 import os
 
-path = "C:/Users/User/Desktop/Study/Diplom/app"
-directory =os.walk(path)
-# we shall store all the file names in this list
-filelist = []
+path = "C:/Users/User/Desktop/Study/Diplom/app/"
 
-for root, dirs, files in os.walk(path):
-# for file in files:
-# append the file name to the list
 
-# filelist.append(os.path.join(root, file))
-#   filelist.append(file)
-     for d in directory:
-         print(d)
-
-# print all the file names
-for name in filelist:
-    print(name)
+def main_ex_app(path):
+    for root, dirs, files in os.walk(path):
+        for d in dirs:
+            print(d)
+            for (root, dirs, file) in os.walk(path + d):
+                for f in file:
+                    if '.apk' in f:
+                        print(f)
