@@ -5,6 +5,7 @@ from androguard import misc
 from tensorflow import keras
 import tensorflow as tf
 import os
+import numpy as np
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -695,6 +696,8 @@ def createFeaturesForModel(a, methods):
 
 
 def send_data_to_db(model, apk_file):
+    category = ['OTHER', 'LIFESTYLE', 'EDUCATION', 'GAMES', 'TRAVEL', 'ENTERTAINMENT', 'BOOKS_AND_NEWS', 'TOOLS', 'COMMUNICATION']
+    category_string = ""
     a, d, dx = misc.AnalyzeAPK(apk_file)
     methods_test = mapper_data_methods(dx)
     pii, icp = search_pii_icp(methods_test)
@@ -706,22 +709,28 @@ def send_data_to_db(model, apk_file):
         reconstructed_model = keras.models.load_model(model)  # my_h5_model.h5
     prediction_model = reconstructed_model.predict([tensor])
 
-    cprint("                                   Основная информация                                     ", "green")
-    cprint("-------------------------------------------------------------------------------------------", "green")
+    pred_mod = str(prediction_model[0]).replace("  ", " ").split(" ")[1:-1]
+
+    for idx, i in enumerate(pred_mod):
+        category_string += category[idx] + ": " + i + "%, "
+
+    cprint("                                             Основная информация                                                    ", "green")
+    cprint("--------------------------------------------------------------------------------------------------------------------", "green")
     print("Название приложения: {}".format(a.get_app_name()))
     print("Пакет приложения: {}".format(a.get_package()))
     print("PII: {pii}%   ICP {icp}%".format(pii=pii, icp=icp))
-    print("Категория приложения: {}".format(prediction_model[0]))
-    cprint("-------------------------------------------------------------------------------------------", "green")
+    print("Категория приложения: {}".format(category_string[0:-2]))
+    cprint("--------------------------------------------------------------------------------------------------------------------", "green")
     print()
-    cprint("                                Дополнительная информация                                  ", "yellow")
-    cprint("-------------------------------------------------------------------------------------------", "yellow")
+    cprint("                                         Дополнительная информация                                                  ", "yellow")
+    cprint("--------------------------------------------------------------------------------------------------------------------", "yellow")
     print("Найденные разрешения: {}".format(permission(a)))
     print("Найденные методы: {}".format(methods_test.get("found_input_methods")))
     print()
     print("Классы для взаимодействия с удаленными ресурсами: {}".format(methods_test.get("found_output_methods")))
-    cprint("-------------------------------------------------------------------------------------------", "yellow")
+    cprint("--------------------------------------------------------------------------------------------------------------------", "yellow")
 
 
 args = parser.parse_args()
-send_data_to_db(args.model, args.apps)
+for i in args.apps.split(","):
+    send_data_to_db(args.model, i)
